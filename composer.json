@@ -1,0 +1,36 @@
+{
+    "name": "jonnitto/picture",
+    "type": "neos-plugin",
+    "license": "MIT",
+    "description": "Responsive picture for Neos CMS",
+    "keywords": [
+        "flow",
+        "neos",
+        "picture",
+        "photo",
+        "image"
+    ],
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://twitter.com/jonnitto",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "neos/neos": "3.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jonnitto\\Picture\\": "Classes"
+        }
+    },
+    "extra": {
+        "marketplace-account": "me@jonnitto.ch",
+        "installer-name": "Jonnitto.Picture",
+        "neos": {
+            "package-key": "Jonnitto.Picture"
+        }
+    }
+}

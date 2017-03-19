@@ -1,0 +1,13 @@
+'Jonnitto.Picture:Picture':
+  superTypes:
+    'Neos.Neos:Content': true
+    'Jonnitto.Picture:Title': true
+    'Jonnitto.Picture:AlternativeText': true
+    'Jonnitto.Picture:Image': true
+    'Jonnitto.Picture:Laptop': true
+    'Jonnitto.Picture:Tablet': true
+    'Jonnitto.Picture:Mobile': true
+  label: '${String.cropAtWord(String.trim(q(node).property(''title'') || q(node).property(''alternativeText'') || I18n.translate(node.nodeType.label) || node.nodeType.name), 100, ''…'')}'
+  ui:
+    label: i18n
+    icon: icon-picture

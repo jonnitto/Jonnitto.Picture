@@ -1,0 +1,55 @@
+prototype(P:Source) < prototype(Fusion:Tag) {
+	media = false
+	sizes = false
+	asset = false
+	type = ${this.asset.mediatype}
+
+	@if.hasAsset = ${this.asset ? true : false}
+
+	maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
+	maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
+	width = ${Configuration.setting('Jonnitto.Picture.width')}
+	height = ${Configuration.setting('Jonnitto.Picture.height')}
+	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+
+	@context {
+		media = ${this.media}
+		type = ${this.type}
+		sizes = ${this.sizes}
+		asset = ${this.asset}
+		maximumWidth = ${this.maximumWidth}
+		maximumHeight = ${this.maximumHeight}
+		width = ${this.width}
+		height = ${this.height}
+		allowCropping = ${this.allowCropping}
+		allowUpScaling = ${this.allowUpScaling}
+	}
+
+	prototype(ImageUri) {
+		multiplicator = 1
+		asset = ${asset}
+		allowCropping = ${allowCropping}
+		allowUpScaling = ${allowUpScaling}
+		maximumWidth = ${width ? false : maximumWidth * this.multiplicator}
+		maximumHeight = ${height ? false : maximumHeight * this.multiplicator}
+		width = ${width ? width * this.multiplicator : false}
+		height = ${height ? height * this.multiplicator : false}
+	}
+
+	tagName = 'source'
+	attributes {
+		media = ${media}
+		sizes = ${sizes}
+		type = ${type}
+		srcset = Fusion:Array {
+			1 = ImageUri {
+				@process.addResolution = ${value + ' 1x'}
+			}
+			2 = ImageUri {
+				multiplicator = 2
+				@process.addResolution = ${',' + value + ' 2x'}
+			}
+		}
+	}
+}

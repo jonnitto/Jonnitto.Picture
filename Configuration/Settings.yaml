@@ -1,0 +1,49 @@
+Jonnitto:
+  Picture:
+    Polyfill: picture
+    cssClass: picture-element
+    allowCropping: false
+    allowUpScaling: false
+    width: false
+    height: false
+    maximumWidth: 2560
+    maximumHeight: 2560
+    maximumWidths:
+      lg: 1140
+      md: 980
+      sm: 756
+      xs: 564
+      fallback: 1140
+    maximumHeights:
+      lg: false
+      md: false
+      sm: false
+      xs: false
+      fallback: false
+    widths:
+      lg: false
+      md: false
+      sm: false
+      xs: false
+      fallback: false
+    heights:
+      lg: false
+      md: false
+      sm: false
+      xs: false
+      fallback: false
+    breakpoints:
+      lg: '(min-width: 992px)'
+      md: '(min-width: 768px)'
+      sm: '(min-width: 576px)'
+
+Neos:
+  Neos:
+    userInterface:
+      translation:
+        autoInclude:
+          Jonnitto.Picture:
+            - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        Jonnitto.Picture: true

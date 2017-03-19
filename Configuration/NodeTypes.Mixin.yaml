@@ -1,0 +1,117 @@
+'Jonnitto.Picture:ImageMeta':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        imagemeta:
+          label: i18n
+          icon: icon-ticket
+          position: 100
+
+'Jonnitto.Picture:Title':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 100
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Jonnitto.Picture:AlternativeText':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    alternativeText:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 200
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Jonnitto.Picture:Image':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        desktop:
+          label: i18n
+          icon: icon-desktop
+          position: 200
+  properties:
+    image:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: desktop
+          position: 100
+
+'Jonnitto.Picture:Laptop':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        laptop:
+          label: i18n
+          icon: icon-laptop
+          position: 300
+  properties:
+    laptop:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: laptop
+          position: 100
+
+'Jonnitto.Picture:Tablet':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        tablet:
+          label: i18n
+          icon: icon-tablet
+          position: 400
+  properties:
+    tablet:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: tablet
+          position: 100
+
+'Jonnitto.Picture:Mobile':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        mobile:
+          label: i18n
+          icon: icon-mobile
+          position: 500
+  properties:
+    mobile:
+      type: Neos\Media\Domain\Model\ImageInterface
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: mobile
+          position: 100

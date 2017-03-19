@@ -1,0 +1,75 @@
+prototype(P:Img) < prototype(Fusion:Tag) {
+	asset = false
+	alternativeText = false
+	title = false
+	maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
+	maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
+	width = ${Configuration.setting('Jonnitto.Picture.width')}
+	height = ${Configuration.setting('Jonnitto.Picture.height')}
+	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+
+	@context {
+		asset = ${this.asset}
+		alternativeText = ${this.alternativeText}
+		title = ${this.title}
+		maximumWidth = ${this.maximumWidth}
+		maximumHeight = ${this.maximumHeight}
+		width = ${this.width}
+		height = ${this.height}
+		allowCropping = ${this.allowCropping}
+		allowUpScaling = ${this.allowUpScaling}
+	}
+
+	prototype(ImageUri) {
+		asset = ${asset}
+		allowCropping = ${allowCropping}
+		allowUpScaling = ${allowUpScaling}
+		maximumWidth = Fusion:Case {
+			inBackendAndNoEdit {
+				condition = ${node.context.inBackend && !allowCropping && !allowUpScaling ? true : false}
+				renderer = false
+			}
+			default {
+				condition = true
+				renderer = ${width ? false : maximumWidth}
+			}
+		}
+		maximumHeight = Fusion:Case {
+			inBackendAndNoEdit {
+				condition = ${node.context.inBackend && !allowCropping && !allowUpScaling ? true : false}
+				renderer = false
+			}
+			default {
+				condition = true
+				renderer = ${height ? false : maximumHeight}
+			}
+		}
+		width = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !width ? false : width}
+		height = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !height ? false : height}
+	}
+
+	@if.inBackendOrHasImage = ${asset || node.context.inBackend ? true : false}
+
+	tagName = 'img'
+	attributes {
+		class = Fusion:RawArray {
+			asset = ${asset ? 'picture' : 'neos-handle'}
+		}
+		alt = ${alternativeText}
+		title = ${title}
+		src = Fusion:Case {
+			hasImage {
+				condition = ${asset ? true : false}
+				renderer = ImageUri
+			}
+			inBackend {
+				condition = ${node.context.inBackend}
+				renderer = Fusion:ResourceUri {
+					package = 'Neos.Neos'
+					path = 'resource://Neos.Neos/Public/Images/dummy-image.svg'
+				}
+			}
+		}
+	}
+}

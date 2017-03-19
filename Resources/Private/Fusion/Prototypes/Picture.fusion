@@ -1,0 +1,98 @@
+prototype(P:Picture) < prototype(Fusion:Tag) {
+	tagName = ${node.context.inBackend ? 'div' : 'picture'}
+	attributes.class = Fusion:RawArray {
+		nodeTypeName = 'jonnitto-picture'
+		settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
+	}
+
+	editable = true
+
+	images = Fusion:RawArray {
+		lg = ${q(node).property('image')}
+		md = ${q(node).property('laptop')}
+		sm = ${q(node).property('tablet')}
+		xs = ${q(node).property('mobile')}
+	}
+
+	breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
+	maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
+	maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
+	widths = ${Configuration.setting('Jonnitto.Picture.widths')}
+	heights = ${Configuration.setting('Jonnitto.Picture.heights')}
+
+	title = ${q(node).property('title')}
+	alternativeText = ${q(node).property('alternativeText')}
+
+	@context {
+		editable = ${this.editable}
+
+		title = ${this.title}
+		alternativeText = ${this.alternativeText}
+		breakpoints = ${this.breakpoints}
+		maximumWidths = ${this.maximumWidths}
+		maximumHeights = ${this.maximumHeights}
+		widths = ${this.widths}
+		heights = ${this.heights}
+
+		sourceLG = ${this.images.lg}
+		sourceMD = ${this.images.md ? this.images.md : this.images.lg}
+		sourceSM = ${this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+		sourceXS = ${this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+		fallback = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs }
+	}
+
+	content = Fusion:Array {
+		notification = Fusion:Tag {
+			@if.noImage = ${!fallback}
+			attributes.style = 'background:#f0ad4e;color:#fff;box-shadow:0 1px 10px rgba(0,0,0,0.1);padding:5% 12px;margin:30px auto;text-align:center;text-decoration:none;outline:none;font-size:20px;'
+			content = ${Translation.translate('Jonnitto.Picture:NodeTypes.Picture:chooseImage')}
+		}
+		sourceLG = P:Source {
+			asset = ${node.context.inBackend ? false : sourceLG}
+			media = ${breakpoints.lg}
+			maximumWidth = ${maximumWidths.lg}
+			maximumHeight = ${maximumHeights.lg}
+			width = ${widths.lg}
+			height = ${heights.lg}
+		}
+		sourceMD = P:Source {
+			asset = ${node.context.inBackend ? false : sourceMD}
+			media = ${breakpoints.md}
+			maximumWidth = ${maximumWidths.md}
+			maximumHeight = ${maximumHeights.md}
+			width = ${widths.md}
+			height = ${heights.md}
+		}
+		sourceSM = P:Source {
+			asset = ${node.context.inBackend ? false : sourceSM}
+			media = ${breakpoints.sm}
+			maximumWidth = ${maximumWidths.sm}
+			maximumHeight = ${maximumHeights.sm}
+			width = ${widths.sm}
+			height = ${heights.sm}
+		}
+		sourceXS = P:Source {
+			asset = ${node.context.inBackend ? false : sourceXS}
+			maximumWidth = ${maximumWidths.xs}
+			maximumHeight = ${maximumHeights.xs}
+			width = ${widths.xs}
+			height = ${heights.xs}
+		}
+		fallback = P:Img {
+			asset = ${fallback}
+			title = ${title}
+			alternativeText = ${alternativeText}
+			maximumWidth = ${maximumWidths.fallback}
+			maximumHeight = ${maximumHeights.fallback}
+			width = ${widths.fallback}
+			height = ${heights.fallback}
+		}
+	}
+
+	@if.hasImageOrBackend = ${node.context.inBackend || fallback ? true : false}
+	@process.contentElementWrapping {
+		expression = Neos.Neos:ContentElementWrapping
+		@if.editable = ${editable}
+		@position = 'end 999999999'
+	}
+}
