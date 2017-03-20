@@ -91,7 +91,7 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 
 	@if.hasImageOrBackend = ${node.context.inBackend || fallback ? true : false}
 	@process.contentElementWrapping {
-		expression = Neos.Neos:ContentElementWrapping
+		expression = ContentElementWrapping
 		@if.editable = ${editable}
 		@position = 'end 999999999'
 	}
