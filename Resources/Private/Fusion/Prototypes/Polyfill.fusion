@@ -1,0 +1,16 @@
+prototype(P:Polyfill) < prototype(Fusion:Tag) {
+	polyfill = ${Configuration.setting('Jonnitto.Picture.Polyfill')}
+	async = false
+	@context {
+		features = ${Type.isString(this.polyfill) ? '?features=' + this.polyfill : ''}
+		async = ${this.async}
+	}
+
+	tagName = 'script'
+	attributes {
+		src = ${'//cdn.polyfill.io/v2/polyfill.min.js' + features}
+		async = ${async}
+	}
+
+	@if.hasPolyfill = ${!String.isBlank(this.polyfill)}
+}

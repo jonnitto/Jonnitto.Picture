@@ -1,0 +1,8 @@
+prototype(Page) {
+	head {
+		Polyfill = P:Polyfill {
+			@if.isLive = ${node.context.live}
+			@position = 'before javascripts'
+		}
+	}
+}
