@@ -1,11 +1,8 @@
-prototype(P:Picture) < prototype(Fusion:Tag) {
-	tagName = ${node.context.inBackend ? 'div' : 'picture'}
+prototype(P:PictureTag) < prototype(Fusion:Tag) {
+	tagName = 'picture'
 	attributes.class = Fusion:RawArray {
-		nodeTypeName = 'jonnitto-picture'
 		settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
 	}
-
-	editable = true
 
 	images = Fusion:RawArray {
 		lg = ${q(node).property('image')}
@@ -25,8 +22,6 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 	caption = ${q(node).property('caption')}
 
 	@context {
-		editable = ${this.editable}
-
 		title = ${this.title}
 		alternativeText = ${this.alternativeText}
 		breakpoints = ${this.breakpoints}
@@ -44,12 +39,9 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 		caption = ${this.caption}
 	}
 
+	@process.addLightbox = P:Lightbox
+
 	content = Fusion:Array {
-		notification = Fusion:Tag {
-			@if.noImage = ${!fallback}
-			attributes.style = 'background:#f0ad4e;color:#fff;box-shadow:0 1px 10px rgba(0,0,0,0.1);padding:5% 12px;margin:30px auto;text-align:center;text-decoration:none;outline:none;font-size:20px;'
-			content = ${Translation.translate('Jonnitto.Picture:NodeTypes.Picture:chooseImage')}
-		}
 		sourceLG = P:Source {
 			asset = ${node.context.inBackend ? false : sourceLG}
 			media = ${breakpoints.lg}
@@ -89,16 +81,6 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 			maximumHeight = ${maximumHeights.fallback}
 			width = ${widths.fallback}
 			height = ${heights.fallback}
-		}
-	}
-
-	@if.hasImageOrBackend = ${node.context.inBackend || fallback ? true : false}
-	@process {
-		addLightbox = P:Lightbox
-		contentElementWrapping {
-			expression = ContentElementWrapping
-			@if.editable = ${editable}
-			@position = 'end 999999999'
 		}
 	}
 }

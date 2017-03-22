@@ -56,8 +56,9 @@ prototype(P:Img) < prototype(Fusion:Tag) {
 		class = Fusion:RawArray {
 			asset = ${asset ? 'picture' : 'neos-handle'}
 		}
-		alt = ${alternativeText}
-		title = ${title}
+		style = ${asset ? false : 'max-height:200px;width:auto;display:inline-block;height:100%;'}
+		alt = ${alternativeText ? alternativeText : false}
+		title = ${title ? title : false}
 		src = Fusion:Case {
 			hasImage {
 				condition = ${asset ? true : false}
@@ -66,8 +67,7 @@ prototype(P:Img) < prototype(Fusion:Tag) {
 			inBackend {
 				condition = ${node.context.inBackend}
 				renderer = Fusion:ResourceUri {
-					package = 'Neos.Neos'
-					path = 'resource://Neos.Neos/Public/Images/dummy-image.svg'
+					path = 'resource://Jonnitto.Picture/Public/dummy-image.svg'
 				}
 			}
 		}

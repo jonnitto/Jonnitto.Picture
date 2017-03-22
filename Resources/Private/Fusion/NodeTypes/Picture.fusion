@@ -1,0 +1,20 @@
+prototype(P:Picture) < prototype(Content) {
+	tagName = 'figure'
+	attributes {
+		class = Fusion:RawArray {
+			@process.nodeType >
+			nodeType = 'jonnitto-picture'
+		}
+		style = Fusion:Value {
+			@if.hasNoImage = ${!hasImage}
+			value = 'display:-webkit-box;display:-ms-flexbox;display:flex;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;background:#f0ad4e;padding:0 12px;max-height:200px;color:#fff;box-shadow:0 1px 10px rgba(0,0,0,0.1);text-align:center;text-decoration:none;outline:none;font-size:20px;'
+		}
+	}
+
+	hasImage = ${q(node).property('image') || q(node).property('laptop') || q(node).property('tablet') || q(node).property('mobile') ? true : false}
+	@context.hasImage = ${this.hasImage}
+
+	picture = P:PictureTag
+
+	@if.hasImageOrBackend = ${node.context.inBackend || hasImage ? true : false}
+}
