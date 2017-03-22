@@ -2,6 +2,9 @@ Jonnitto:
   Picture:
     Polyfill: picture
     cssClass: picture-element
+    lightbox:
+      class: 'picture-lightbox lightbox'
+      target: _blank
     allowCropping: false
     allowUpScaling: false
     width: false

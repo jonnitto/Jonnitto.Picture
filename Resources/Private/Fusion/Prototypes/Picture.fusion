@@ -22,6 +22,7 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 
 	title = ${q(node).property('title')}
 	alternativeText = ${q(node).property('alternativeText')}
+	caption = ${q(node).property('caption')}
 
 	@context {
 		editable = ${this.editable}
@@ -38,7 +39,9 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 		sourceMD = ${this.images.md ? this.images.md : this.images.lg}
 		sourceSM = ${this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
 		sourceXS = ${this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
-		fallback = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs }
+		fallback = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+		lightbox = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+		caption = ${this.caption}
 	}
 
 	content = Fusion:Array {
@@ -90,9 +93,12 @@ prototype(P:Picture) < prototype(Fusion:Tag) {
 	}
 
 	@if.hasImageOrBackend = ${node.context.inBackend || fallback ? true : false}
-	@process.contentElementWrapping {
-		expression = ContentElementWrapping
-		@if.editable = ${editable}
-		@position = 'end 999999999'
+	@process {
+		addLightbox = P:Lightbox
+		contentElementWrapping {
+			expression = ContentElementWrapping
+			@if.editable = ${editable}
+			@position = 'end 999999999'
+		}
 	}
 }
