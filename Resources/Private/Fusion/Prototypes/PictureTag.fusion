@@ -1,4 +1,4 @@
-prototype(P:PictureTag) < prototype(Fusion:Tag) {
+prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 	tagName = 'picture'
 	attributes.class = Fusion:RawArray {
 		settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
@@ -39,10 +39,13 @@ prototype(P:PictureTag) < prototype(Fusion:Tag) {
 		caption = ${this.caption}
 	}
 
-	@process.addLightbox = P:Lightbox
+	@process {
+		addLightbox = Jonnitto.Picture:Lightbox
+		addLink = Jonnitto.Picture:Link
+	}
 
 	content = Fusion:Array {
-		sourceLG = P:Source {
+		sourceLG = Jonnitto.Picture:Source {
 			asset = ${node.context.inBackend ? false : sourceLG}
 			media = ${breakpoints.lg}
 			maximumWidth = ${maximumWidths.lg}
@@ -50,7 +53,7 @@ prototype(P:PictureTag) < prototype(Fusion:Tag) {
 			width = ${widths.lg}
 			height = ${heights.lg}
 		}
-		sourceMD = P:Source {
+		sourceMD = Jonnitto.Picture:Source {
 			asset = ${node.context.inBackend ? false : sourceMD}
 			media = ${breakpoints.md}
 			maximumWidth = ${maximumWidths.md}
@@ -58,7 +61,7 @@ prototype(P:PictureTag) < prototype(Fusion:Tag) {
 			width = ${widths.md}
 			height = ${heights.md}
 		}
-		sourceSM = P:Source {
+		sourceSM = Jonnitto.Picture:Source {
 			asset = ${node.context.inBackend ? false : sourceSM}
 			media = ${breakpoints.sm}
 			maximumWidth = ${maximumWidths.sm}
@@ -66,14 +69,14 @@ prototype(P:PictureTag) < prototype(Fusion:Tag) {
 			width = ${widths.sm}
 			height = ${heights.sm}
 		}
-		sourceXS = P:Source {
+		sourceXS = Jonnitto.Picture:Source {
 			asset = ${node.context.inBackend ? false : sourceXS}
 			maximumWidth = ${maximumWidths.xs}
 			maximumHeight = ${maximumHeights.xs}
 			width = ${widths.xs}
 			height = ${heights.xs}
 		}
-		fallback = P:Img {
+		fallback = Jonnitto.Picture:ImageTag {
 			asset = ${fallback}
 			title = ${title}
 			alternativeText = ${alternativeText}

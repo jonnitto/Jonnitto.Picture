@@ -7,7 +7,11 @@
     'Jonnitto.Picture:Laptop': true
     'Jonnitto.Picture:Tablet': true
     'Jonnitto.Picture:Mobile': true
+    # 'Jonnitto.Picture:Lightbox': true
+    # 'Jonnitto.Picture:Caption': true
+    # 'Jonnitto.Picture:Link': true
   label: '${String.cropAtWord(String.trim(q(node).property(''title'') || q(node).property(''alternativeText'') || q(node).property(''caption'') || I18n.translate(node.nodeType.label) || node.nodeType.name), 100, ''…'')}'
   ui:
     label: i18n
     icon: icon-picture
+    position: 400

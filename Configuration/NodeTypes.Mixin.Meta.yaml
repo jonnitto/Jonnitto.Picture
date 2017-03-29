@@ -1,0 +1,84 @@
+'Jonnitto.Picture:ImageMeta':
+  abstract: true
+  ui:
+    inspector:
+      groups:
+        imagemeta:
+          label: i18n
+          icon: icon-ticket
+          position: 100
+
+'Jonnitto.Picture:Title':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    title:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 100
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Jonnitto.Picture:AlternativeText':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    alternativeText:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 200
+      validation:
+        'Neos.Neos/Validation/LabelValidator': true
+
+'Jonnitto.Picture:Lightbox':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    lightbox:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: i18n
+        inspector:
+          group: imagemeta
+          position: 300
+
+'Jonnitto.Picture:Caption':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    caption:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          group: imagemeta
+          position: 400
+
+'Jonnitto.Picture:Link':
+  abstract: true
+  superTypes:
+    'Jonnitto.Picture:ImageMeta': true
+  properties:
+    link:
+      type: string
+      ui:
+        label: i18n
+        reloadIfChanged: false
+        inspector:
+          position: 500
+          group: imagemeta
+          editor: Neos.Neos/Inspector/Editors/LinkEditor

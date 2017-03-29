@@ -1,5 +1,5 @@
-prototype(P:Lightbox) < prototype(Fusion:Tag) {
-  @if.isEnabled = ${node.context.live && q(node).property('lightbox') && lightbox ? true : false}
+prototype(Jonnitto.Picture:Lightbox) < prototype(Fusion:Tag) {
+  @if.isEnabled = ${node.context.live && q(node).property('lightbox') && !q(node).property('link')  && lightbox ? true : false}
   tagName = 'a'
   content = ${value}
   attributes {

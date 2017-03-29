@@ -1,9 +1,10 @@
-prototype(P:Picture) < prototype(Content) {
+prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 	tagName = 'figure'
 	attributes {
 		class = Fusion:RawArray {
 			@process.nodeType >
 			nodeType = 'jonnitto-picture'
+			container = ${Configuration.setting('Jonnitto.Picture.container')}
 		}
 		style = Fusion:Value {
 			@if.hasNoImage = ${!hasImage}
@@ -14,7 +15,7 @@ prototype(P:Picture) < prototype(Content) {
 	hasImage = ${q(node).property('image') || q(node).property('laptop') || q(node).property('tablet') || q(node).property('mobile') ? true : false}
 	@context.hasImage = ${this.hasImage}
 
-	picture = P:PictureTag
+	picture = Jonnitto.Picture:PictureTag
 
 	@if.hasImageOrBackend = ${node.context.inBackend || hasImage ? true : false}
 }

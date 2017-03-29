@@ -1,4 +1,4 @@
-prototype(P:Polyfill) < prototype(Fusion:Tag) {
+prototype(Jonnitto.Picture:Polyfill) < prototype(Fusion:Tag) {
 	polyfill = ${Configuration.setting('Jonnitto.Picture.Polyfill')}
 	async = false
 	@context {

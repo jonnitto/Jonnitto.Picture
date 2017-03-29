@@ -1,4 +1,4 @@
-prototype(P:Img) < prototype(Fusion:Tag) {
+prototype(Jonnitto.Picture:ImageTag) < prototype(Fusion:Tag) {
 	asset = false
 	alternativeText = false
 	title = false
