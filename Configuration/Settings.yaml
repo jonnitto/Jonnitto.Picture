@@ -1,7 +1,7 @@
 Jonnitto:
   Picture:
     container: false
-    Polyfill: picture
+    Polyfill: HTMLPictureElement
     cssClass: picture-element
     lightbox:
       class: 'picture-lightbox lightbox'
