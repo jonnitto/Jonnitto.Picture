@@ -1,4 +1,6 @@
 prototype(Jonnitto.Picture:Picture) < prototype(Content) {
+	templatePath = 'resource://Jonnitto.Picture/Private/Fusion/Picture/Picture.html'
+
 	tagName = 'figure'
 	attributes {
 		class = Fusion:RawArray {
