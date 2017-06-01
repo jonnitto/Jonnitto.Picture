@@ -14,10 +14,67 @@ prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 		}
 	}
 
-	hasImage = ${q(node).property('image') || q(node).property('laptop') || q(node).property('tablet') || q(node).property('mobile') ? true : false}
-	@context.hasImage = ${this.hasImage}
+	// The main image
+	image = ${q(node).property('image')}
 
-	picture = Jonnitto.Picture:PictureTag
+	// The responsive image variants
+	images = Fusion:RawArray {
+		md = ${q(node).property('laptop')}
+		sm = ${q(node).property('tablet')}
+		xs = ${q(node).property('mobile')}
+	}
+
+	hasImage = ${this.image || this.images.md || this.images.sm || this.images.xs ? true : false}
+
+	title = ${q(node).property('title')}
+	alternativeText = ${q(node).property('alternativeText')}
+	caption = ${q(node).property('caption')}
+
+	breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
+	maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
+	maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
+	widths = ${Configuration.setting('Jonnitto.Picture.widths')}
+	heights = ${Configuration.setting('Jonnitto.Picture.heights')}
+	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+
+	@context {
+		hasImage = ${this.hasImage}
+		image = ${this.image}
+		images = ${this.images}
+
+		title = ${this.title}
+		alternativeText = ${this.alternativeText}
+		caption = ${this.caption}
+
+		breakpoints = ${this.breakpoints}
+		maximumWidths = ${this.maximumWidths}
+		maximumHeights = ${this.maximumHeights}
+		widths = ${this.widths}
+		heights = ${this.heights}
+		allowCropping = ${this.allowCropping}
+		allowUpScaling = ${this.allowUpScaling}
+	}
+
+	picture = Jonnitto.Picture:PictureTag {
+		images = Fusion:RawArray {
+			lg = ${image}
+			md = ${images.md}
+			sm = ${images.sm}
+			xs = ${images.xs}
+		}
+		title = ${title}
+		alternativeText = ${alternativeText}
+		caption = ${caption}
+
+		breakpoints = ${breakpoints}
+		maximumWidths = ${maximumWidths}
+		maximumHeights = ${maximumHeights}
+		widths = ${widths}
+		heights = ${heights}
+		allowCropping = ${allowCropping}
+		allowUpScaling = ${allowUpScaling}
+	}
 
 	@if.hasImageOrBackend = ${node.context.inBackend || hasImage ? true : false}
 }

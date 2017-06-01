@@ -2,8 +2,11 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file original="" product-name="Jonnitto.Picture" source-language="de" datatype="plaintext">
 		<body>
-			<trans-unit id="groups.imagemeta" xml:space="preserve">
-				<source>Bildeigenschaften</source>
+			<trans-unit id="groups.desktop" xml:space="preserve">
+				<source>Bild</source>
+			</trans-unit>
+			<trans-unit id="properties.image" xml:space="preserve">
+				<source>Bild</source>
 			</trans-unit>
 		</body>
 	</file>

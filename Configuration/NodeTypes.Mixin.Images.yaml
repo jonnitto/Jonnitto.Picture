@@ -1,3 +1,17 @@
+'Jonnitto.Picture:SingleImage':
+  superTypes:
+    'Jonnitto.Picture:Image': true
+    'Jonnitto.Picture:Laptop': false
+    'Jonnitto.Picture:Tablet': false
+    'Jonnitto.Picture:Mobile': false
+  ui:
+    inspector:
+      groups:
+        desktop:
+          label: i18n
+          icon: icon-image
+          position: 200
+
 'Jonnitto.Picture:Image':
   abstract: true
   ui:

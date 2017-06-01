@@ -1,8 +1,5 @@
 prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 	tagName = 'picture'
-	attributes.class = Fusion:RawArray {
-		settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
-	}
 
 	images = Fusion:RawArray {
 		lg = ${q(node).property('image')}
@@ -11,24 +8,30 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 		xs = ${q(node).property('mobile')}
 	}
 
+	title = ${q(node).property('title')}
+	alternativeText = ${q(node).property('alternativeText')}
+	caption = ${q(node).property('caption')}
+
 	breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
 	maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
 	maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
 	widths = ${Configuration.setting('Jonnitto.Picture.widths')}
 	heights = ${Configuration.setting('Jonnitto.Picture.heights')}
-
-	title = ${q(node).property('title')}
-	alternativeText = ${q(node).property('alternativeText')}
-	caption = ${q(node).property('caption')}
+	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
 
 	@context {
 		title = ${this.title}
 		alternativeText = ${this.alternativeText}
+		caption = ${this.caption}
+
 		breakpoints = ${this.breakpoints}
 		maximumWidths = ${this.maximumWidths}
 		maximumHeights = ${this.maximumHeights}
 		widths = ${this.widths}
 		heights = ${this.heights}
+		allowCropping = ${this.allowCropping}
+		allowUpScaling = ${this.allowUpScaling}
 
 		sourceLG = ${this.images.lg}
 		sourceMD = ${this.images.md ? this.images.md : this.images.lg}
@@ -36,7 +39,12 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 		sourceXS = ${this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
 		fallback = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
 		lightbox = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
-		caption = ${this.caption}
+	}
+
+	attributes {
+		class = Fusion:RawArray {
+			settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
+		}
 	}
 
 	@process {
@@ -45,6 +53,11 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 	}
 
 	content = Fusion:Array {
+		prototype(Jonnitto.Picture:Source) {
+			allowCropping = ${allowCropping}
+			allowUpScaling = ${allowUpScaling}
+		}
+
 		sourceLG = Jonnitto.Picture:Source {
 			asset = ${node.context.inBackend ? false : sourceLG}
 			media = ${breakpoints.lg}
@@ -84,6 +97,8 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 			maximumHeight = ${maximumHeights.fallback}
 			width = ${widths.fallback}
 			height = ${heights.fallback}
+			allowCropping = ${allowCropping}
+			allowUpScaling = ${allowUpScaling}
 		}
 	}
 }
