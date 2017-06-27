@@ -16,6 +16,7 @@ prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 
 	// The main image
 	image = ${q(node).property('image')}
+	singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
 
 	// The responsive image variants
 	images = Fusion:RawArray {
@@ -25,6 +26,7 @@ prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 	}
 
 	hasImage = ${this.image || this.images.md || this.images.sm || this.images.xs ? true : false}
+	notification = ${this.singleImage ? 'chooseImage' : 'chooseImages'}
 
 	title = ${q(node).property('title')}
 	alternativeText = ${q(node).property('alternativeText')}
@@ -42,6 +44,7 @@ prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 		hasImage = ${this.hasImage}
 		image = ${this.image}
 		images = ${this.images}
+		singleImage = ${this.singleImage}
 
 		title = ${this.title}
 		alternativeText = ${this.alternativeText}
@@ -57,6 +60,8 @@ prototype(Jonnitto.Picture:Picture) < prototype(Content) {
 	}
 
 	picture = Jonnitto.Picture:PictureTag {
+		singleImage = ${singleImage}
+		image = ${image}
 		images = Fusion:RawArray {
 			lg = ${image}
 			md = ${images.md}

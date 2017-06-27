@@ -10,6 +10,7 @@ Jonnitto:
     allowUpScaling: false
     width: false
     height: false
+    singleImage: false
     maximumWidth: 2560
     maximumHeight: 2560
     maximumWidths:

@@ -5,8 +5,11 @@
 			<trans-unit id="ui.label" xml:space="preserve">
 				<source>Responsive picture</source>
 			</trans-unit>
-			<trans-unit id="chooseImage" xml:space="preserve">
+			<trans-unit id="chooseImages" xml:space="preserve">
 				<source>Please choose at least one image in the inspector</source>
+			</trans-unit>
+			<trans-unit id="chooseImage" xml:space="preserve">
+				<source>Please choose a image in the inspector</source>
 			</trans-unit>
 		</body>
 	</file>

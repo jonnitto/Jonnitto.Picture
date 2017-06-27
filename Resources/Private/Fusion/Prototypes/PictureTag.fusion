@@ -1,6 +1,8 @@
 prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 	tagName = 'picture'
 
+	singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
+	image = ${q(node).property('image')}
 	images = Fusion:RawArray {
 		lg = ${q(node).property('image')}
 		md = ${q(node).property('laptop')}
@@ -33,12 +35,12 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
 		allowCropping = ${this.allowCropping}
 		allowUpScaling = ${this.allowUpScaling}
 
-		sourceLG = ${this.images.lg}
-		sourceMD = ${this.images.md ? this.images.md : this.images.lg}
-		sourceSM = ${this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
-		sourceXS = ${this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
-		fallback = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
-		lightbox = ${this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+		sourceLG = ${this.singleImage ? this.image : this.images.lg}
+		sourceMD = ${this.singleImage ? this.image : this.images.md ? this.images.md : this.images.lg}
+		sourceSM = ${this.singleImage ? this.image : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+		sourceXS = ${this.singleImage ? this.image : this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+		fallback = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+		lightbox = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
 	}
 
 	attributes {
