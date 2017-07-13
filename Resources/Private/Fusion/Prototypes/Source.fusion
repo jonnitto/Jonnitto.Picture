@@ -2,6 +2,7 @@ prototype(Jonnitto.Picture:Source) < prototype(Fusion:Tag) {
 	media = false
 	sizes = false
 	asset = false
+	preset = false
 	type = ${this.asset.mediatype}
 
 	@if.hasAsset = ${this.asset ? true : false}
@@ -18,6 +19,7 @@ prototype(Jonnitto.Picture:Source) < prototype(Fusion:Tag) {
 		type = ${this.type}
 		sizes = ${this.sizes}
 		asset = ${this.asset}
+		preset = ${this.preset}
 		maximumWidth = ${this.maximumWidth}
 		maximumHeight = ${this.maximumHeight}
 		width = ${this.width}
@@ -35,6 +37,8 @@ prototype(Jonnitto.Picture:Source) < prototype(Fusion:Tag) {
 		maximumHeight = ${height ? false : maximumHeight * this.multiplicator}
 		width = ${width ? width * this.multiplicator : false}
 		height = ${height ? height * this.multiplicator : false}
+		preset = ${this.multiplicator > 1 && preset ? preset + '.' + this.multiplicator + 'x' : preset}
+		@process.addResolution = ${(this.multiplicator > 1 ? ',' : '') + value + ' ' + this.multiplicator + 'x'}
 	}
 
 	tagName = 'source'
@@ -43,12 +47,9 @@ prototype(Jonnitto.Picture:Source) < prototype(Fusion:Tag) {
 		sizes = ${sizes}
 		type = ${type}
 		srcset = Fusion:Array {
-			1 = ImageUri {
-				@process.addResolution = ${value + ' 1x'}
-			}
+			1 = ImageUri
 			2 = ImageUri {
 				multiplicator = 2
-				@process.addResolution = ${',' + value + ' 2x'}
 			}
 		}
 	}

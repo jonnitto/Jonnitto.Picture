@@ -16,7 +16,9 @@ prototype(Helper:LinkURI) < prototype(Fusion:Value) {
 		isAssetOrExternal {
 			condition = ${read}
 			renderer = ${read}
-			renderer.@process.convertUris = ConvertUris
+			renderer.@process.convertUris = ConvertUris {
+				forceConversion = true
+			}
 		}
 		noLink {
 			condition = true

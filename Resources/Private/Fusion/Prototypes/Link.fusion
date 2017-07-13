@@ -1,6 +1,6 @@
 prototype(Jonnitto.Picture:Link) < prototype(Fusion:Tag) {
-  @if.isEnabled = ${node.context.live && q(node).property('link') ? true : false}
-  tagName = 'a'
-  content = ${value}
-  attributes = Helper:LinkAttributes
+	@if.isEnabled = ${node.context.live && q(node).property('link') ? true : false}
+	tagName = 'a'
+	content = ${value}
+	attributes = Helper:LinkAttributes
 }

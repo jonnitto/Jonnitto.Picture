@@ -2,6 +2,7 @@ prototype(Jonnitto.Picture:ImageTag) < prototype(Fusion:Tag) {
 	asset = false
 	alternativeText = false
 	title = false
+	preset = false
 	maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
 	maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
 	width = ${Configuration.setting('Jonnitto.Picture.width')}
@@ -13,6 +14,7 @@ prototype(Jonnitto.Picture:ImageTag) < prototype(Fusion:Tag) {
 		asset = ${this.asset}
 		alternativeText = ${this.alternativeText}
 		title = ${this.title}
+		preset = ${this.preset}
 		maximumWidth = ${this.maximumWidth}
 		maximumHeight = ${this.maximumHeight}
 		width = ${this.width}
@@ -47,6 +49,7 @@ prototype(Jonnitto.Picture:ImageTag) < prototype(Fusion:Tag) {
 		}
 		width = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !width ? false : width}
 		height = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !height ? false : height}
+		preset = ${preset}
 	}
 
 	@if.inBackendOrHasImage = ${asset || node.context.inBackend ? true : false}

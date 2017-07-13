@@ -1,14 +1,14 @@
 prototype(Jonnitto.Picture:Lightbox) < prototype(Fusion:Tag) {
-  @if.isEnabled = ${node.context.live && q(node).property('lightbox') && !q(node).property('link')  && lightbox ? true : false}
-  tagName = 'a'
-  content = ${value}
-  attributes {
-    target = ${Configuration.setting('Jonnitto.Picture.lightbox.target')}
-    class = ${Configuration.setting('Jonnitto.Picture.lightbox.class')}
-    data-size = ${lightbox.width + 'x' + lightbox.height}
-    data-title = ${caption}
-    href = ImageUri {
-      asset = ${lightbox}
-    }
-  }
+	@if.isEnabled = ${node.context.live && q(node).property('lightbox') && !q(node).property('link')  && lightbox ? true : false}
+	tagName = 'a'
+	content = ${value}
+	attributes {
+		target = ${Configuration.setting('Jonnitto.Picture.lightbox.target')}
+		class = ${Configuration.setting('Jonnitto.Picture.lightbox.class')}
+		data-size = ${lightbox.width + 'x' + lightbox.height}
+		data-title = ${caption}
+		href = ImageUri {
+			asset = ${lightbox}
+		}
+	}
 }
