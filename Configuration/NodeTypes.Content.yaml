@@ -1,16 +1,16 @@
 'Jonnitto.Picture:Picture':
   superTypes:
     'Neos.Neos:Content': true
-    'Jonnitto.Picture:Title': true
-    'Jonnitto.Picture:AlternativeText': true
+    'Carbon.Image:Title': true
+    'Carbon.Image:AlternativeText': true
+    'Carbon.Image:Lightbox': true
+    'Carbon.Image:Caption': true
+    'Carbon.Image:Link': true
+    'Carbon.Image:BackendLabel': true
     'Jonnitto.Picture:Image': true
     'Jonnitto.Picture:Laptop': true
     'Jonnitto.Picture:Tablet': true
     'Jonnitto.Picture:Mobile': true
-    # 'Jonnitto.Picture:Lightbox': true
-    # 'Jonnitto.Picture:Caption': true
-    # 'Jonnitto.Picture:Link': true
-  label: '${String.cropAtWord(String.trim(q(node).property(''title'') || q(node).property(''alternativeText'') || q(node).property(''caption'') || I18n.translate(node.nodeType.label) || node.nodeType.name), 100, ''…'')}'
   ui:
     label: i18n
     icon: icon-picture
