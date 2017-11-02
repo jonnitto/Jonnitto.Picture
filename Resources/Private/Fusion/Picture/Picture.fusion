@@ -1,95 +1,103 @@
-prototype(Jonnitto.Picture:Picture) < prototype(Content) {
-	templatePath = 'resource://Jonnitto.Picture/Private/Fusion/Picture/Picture.html'
+prototype(Jonnitto.Picture:Picture) < prototype(Neos.Fusion:Tag) {
+    tagName = 'figure'
+    attributes.class = Fusion:RawArray {
+        nodeType = 'jonnitto-picture'
+        container = ${Configuration.setting('Jonnitto.Picture.container')}
+    }
 
-	tagName = 'figure'
-	attributes {
-		class = Fusion:RawArray {
-			@process.nodeType >
-			nodeType = 'jonnitto-picture'
-			container = ${Configuration.setting('Jonnitto.Picture.container')}
-		}
-		style = Fusion:Value {
-			@if.hasNoImage = ${!hasImage}
-			value = 'display:-webkit-box;display:-ms-flexbox;display:flex;flex-direction:row;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;background:#f0ad4e;padding:0 12px;max-height:200px;color:#fff;box-shadow:0 1px 10px rgba(0,0,0,0.1);text-align:center;text-decoration:none;outline:none;font-size:20px;'
-		}
-	}
+    // The main image
+    image = ${q(node).property('image')}
+    singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
+    srcset = ${Configuration.setting('Jonnitto.Picture.srcset')}
+    // The responsive image variants
+    images = Fusion:RawArray {
+        md = ${q(node).property('laptop')}
+        sm = ${q(node).property('tablet')}
+        xs = ${q(node).property('mobile')}
+    }
 
-	// The main image
-	image = ${q(node).property('image')}
-	singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
+    presets = Fusion:RawArray {
+        lg = null
+        md = null
+        sm = null
+        xs = null
+        fallback = null
+    }
 
-	// The responsive image variants
-	images = Fusion:RawArray {
-		md = ${q(node).property('laptop')}
-		sm = ${q(node).property('tablet')}
-		xs = ${q(node).property('mobile')}
-	}
+    hasImage = ${this.image || this.images.md || this.images.sm || this.images.xs ? true : false}
 
-	presets = Fusion:RawArray {
-		lg = null
-		md = null
-		sm = null
-		xs = null
-		fallback = null
-	}
+    title = ${q(node).property('title')}
+    alternativeText = ${q(node).property('alternativeText')}
+    caption = ${q(node).property('caption')}
+    lightbox = ${q(node).property('lightbox')}
+    link = ${q(node).property('link')}
 
-	hasImage = ${this.image || this.images.md || this.images.sm || this.images.xs ? true : false}
-	notification = ${this.singleImage ? 'chooseImage' : 'chooseImages'}
+    breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
+    maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
+    maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
+    widths = ${Configuration.setting('Jonnitto.Picture.widths')}
+    heights = ${Configuration.setting('Jonnitto.Picture.heights')}
+    allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+    allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
 
-	title = ${q(node).property('title')}
-	alternativeText = ${q(node).property('alternativeText')}
-	caption = ${q(node).property('caption')}
 
-	breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
-	maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
-	maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
-	widths = ${Configuration.setting('Jonnitto.Picture.widths')}
-	heights = ${Configuration.setting('Jonnitto.Picture.heights')}
-	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
-	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+    @context {
+        hasImage = ${this.hasImage}
+        image = ${this.image}
+        lightboxAsset = ${this.lightboxAsset}
+        images = ${this.images}
+        singleImage = ${this.singleImage}
+        srcset = ${this.srcset}
 
-	@context {
-		hasImage = ${this.hasImage}
-		image = ${this.image}
-		images = ${this.images}
-		singleImage = ${this.singleImage}
+        title = ${this.title}
+        alternativeText = ${this.alternativeText}
+        caption = ${this.caption}
 
-		title = ${this.title}
-		alternativeText = ${this.alternativeText}
-		caption = ${this.caption}
+        breakpoints = ${this.breakpoints}
+        maximumWidths = ${this.maximumWidths}
+        maximumHeights = ${this.maximumHeights}
+        widths = ${this.widths}
+        heights = ${this.heights}
+        allowCropping = ${this.allowCropping}
+        allowUpScaling = ${this.allowUpScaling}
+        presets = ${this.presets}
+        lightbox = ${this.lightbox}
+        link = ${this.link}
+    }
 
-		breakpoints = ${this.breakpoints}
-		maximumWidths = ${this.maximumWidths}
-		maximumHeights = ${this.maximumHeights}
-		widths = ${this.widths}
-		heights = ${this.heights}
-		allowCropping = ${this.allowCropping}
-		allowUpScaling = ${this.allowUpScaling}
-		presets = ${this.presets}
-	}
+    content = Jonnitto.Picture:PictureTag {
+        singleImage = ${singleImage}
+        image = ${image}
+        images = Fusion:RawArray {
+            lg = ${image}
+            md = ${images.md}
+            sm = ${images.sm}
+            xs = ${images.xs}
+        }
+        title = ${title}
+        alternativeText = ${alternativeText}
+        caption = ${caption}
 
-	picture = Jonnitto.Picture:PictureTag {
-		singleImage = ${singleImage}
-		image = ${image}
-		images = Fusion:RawArray {
-			lg = ${image}
-			md = ${images.md}
-			sm = ${images.sm}
-			xs = ${images.xs}
-		}
-		title = ${title}
-		alternativeText = ${alternativeText}
-		caption = ${caption}
+        breakpoints = ${breakpoints}
+        maximumWidths = ${maximumWidths}
+        maximumHeights = ${maximumHeights}
+        widths = ${widths}
+        heights = ${heights}
+        allowCropping = ${allowCropping}
+        allowUpScaling = ${allowUpScaling}
+        presets = ${presets}
 
-		breakpoints = ${breakpoints}
-		maximumWidths = ${maximumWidths}
-		maximumHeights = ${maximumHeights}
-		widths = ${widths}
-		heights = ${heights}
-		allowCropping = ${allowCropping}
-		allowUpScaling = ${allowUpScaling}
-		presets = ${presets}
-	}
+        @process.addNotification = Carbon.Notification:Backend {
+            @if.hasNoImage = ${!hasImage}
+            content = ${Translation.translate(singleImage ? 'chooseImage' : 'chooseImages' , null, [], 'NodeTypes/Picture', 'Jonnitto.Picture')}
+        }
+    }
 
-	@if.hasImageOrBackend = ${node.context.inBackend || hasImage ? true : false}
+    @if.hasImageOrBackend = ${node.context.inBackend || this.hasImage ? true : false}
+    @process.contentElementWrapping {
+        expression = ContentElementWrapping
+        @position = 'end 999999999'
+    }
+
+    @exceptionHandler = 'Neos\\Neos\\Fusion\\ExceptionHandlers\\NodeWrappingHandler'
 }

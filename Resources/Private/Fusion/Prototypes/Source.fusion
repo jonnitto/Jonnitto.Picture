@@ -1,56 +1,41 @@
-prototype(Jonnitto.Picture:Source) < prototype(Fusion:Tag) {
-	media = false
-	sizes = false
-	asset = false
-	preset = false
-	type = ${this.asset.mediatype}
+prototype(Jonnitto.Picture:Source) < prototype(Neos.Fusion:Tag) {
+    srcset = ${srcset ? srcset : Configuration.setting('Jonnitto.Picture.srcset')}
 
-	@if.hasAsset = ${this.asset ? true : false}
+    media = false
+    sizes = false
+    asset = false
+    preset = false
+    type = ${this.asset.mediatype}
 
-	maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
-	maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
-	width = ${Configuration.setting('Jonnitto.Picture.width')}
-	height = ${Configuration.setting('Jonnitto.Picture.height')}
-	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
-	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+    @if.hasAsset = ${this.asset ? true : false}
 
-	@context {
-		media = ${this.media}
-		type = ${this.type}
-		sizes = ${this.sizes}
-		asset = ${this.asset}
-		preset = ${this.preset}
-		maximumWidth = ${this.maximumWidth}
-		maximumHeight = ${this.maximumHeight}
-		width = ${this.width}
-		height = ${this.height}
-		allowCropping = ${this.allowCropping}
-		allowUpScaling = ${this.allowUpScaling}
-	}
+    maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
+    maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
+    width = ${Configuration.setting('Jonnitto.Picture.width')}
+    height = ${Configuration.setting('Jonnitto.Picture.height')}
+    allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+    allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
 
-	prototype(ImageUri) {
-		multiplicator = 1
-		asset = ${asset}
-		allowCropping = ${allowCropping}
-		allowUpScaling = ${allowUpScaling}
-		maximumWidth = ${width ? false : maximumWidth * this.multiplicator}
-		maximumHeight = ${height ? false : maximumHeight * this.multiplicator}
-		width = ${width ? width * this.multiplicator : false}
-		height = ${height ? height * this.multiplicator : false}
-		preset = ${this.multiplicator > 1 && preset ? preset + '.' + this.multiplicator + 'x' : preset}
-		@process.addResolution = ${(this.multiplicator > 1 ? ',' : '') + value + ' ' + this.multiplicator + 'x'}
-	}
+    @context {
+        media = ${this.media}
+        type = ${this.type}
+        sizes = ${this.sizes}
+        asset = ${this.asset}
+        preset = ${this.preset}
+        srcset = ${this.srcset}
+        maximumWidth = ${this.maximumWidth}
+        maximumHeight = ${this.maximumHeight}
+        width = ${this.width}
+        height = ${this.height}
+        allowCropping = ${this.allowCropping}
+        allowUpScaling = ${this.allowUpScaling}
+    }
 
-	tagName = 'source'
-	attributes {
-		media = ${media}
-		sizes = ${sizes}
-		type = ${type}
-		srcset = Fusion:Array {
-			1 = ImageUri
-			2 = ImageUri {
-				multiplicator = 2
-			}
-		}
-	}
+    tagName = 'source'
+    attributes {
+        media = ${media}
+        sizes = ${sizes}
+        type = ${type}
+        srcset = Carbon.Image:Srcset
+    }
 }

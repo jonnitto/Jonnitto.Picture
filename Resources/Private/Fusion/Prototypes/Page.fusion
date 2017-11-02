@@ -1,8 +1,0 @@
-prototype(Page) {
-	head {
-		Polyfill = Jonnitto.Picture:Polyfill {
-			@if.isLive = ${node.context.live}
-			@position = 'before javascripts'
-		}
-	}
-}

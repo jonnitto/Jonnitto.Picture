@@ -1,4 +1,4 @@
 namespace: Fusion = Neos.Fusion
-namespace: Helper = Jonnitto.Picture
+
 
 include: **/*.fusion

@@ -3,13 +3,7 @@
     "type": "neos-plugin",
     "license": "MIT",
     "description": "Responsive picture for Neos CMS",
-    "keywords": [
-        "flow",
-        "neos",
-        "picture",
-        "photo",
-        "image"
-    ],
+    "keywords": ["flow", "neos", "picture", "photo", "image"],
     "authors": [
         {
             "name": "Jon Uhlmann",
@@ -19,7 +13,13 @@
         }
     ],
     "require": {
-        "neos/neos": "~3.0 || dev-master"
+        "neos/neos": "~3.0 || dev-master",
+        "carbon/link": "*",
+        "carbon/image": "*",
+        "carbon/notification": "^1.0"
+    },
+    "archive": {
+        "exclude": [".editorconfig", ".github", ".gitattributes", "CODE_OF_CONDUCT.md"]
     },
     "autoload": {
         "psr-4": {

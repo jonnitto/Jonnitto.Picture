@@ -1,120 +1,128 @@
-prototype(Jonnitto.Picture:PictureTag) < prototype(Fusion:Tag) {
-	tagName = 'picture'
+prototype(Jonnitto.Picture:PictureTag) < prototype(Neos.Fusion:Tag) {
+    tagName = 'picture'
 
-	singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
-	image = ${q(node).property('image')}
-	images = Fusion:RawArray {
-		lg = ${q(node).property('image')}
-		md = ${q(node).property('laptop')}
-		sm = ${q(node).property('tablet')}
-		xs = ${q(node).property('mobile')}
-	}
+    singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
+    srcset = ${srcset ? srcset : Configuration.setting('Jonnitto.Picture.srcset')}
+    image = ${q(node).property('image')}
+    images = Neos.Fusion:RawArray {
+        lg = ${q(node).property('image')}
+        md = ${q(node).property('laptop')}
+        sm = ${q(node).property('tablet')}
+        xs = ${q(node).property('mobile')}
+    }
 
-	presets = Fusion:RawArray {
-		lg = null
-		md = null
-		sm = null
-		xs = null
-		fallback = null
-	}
+    presets = Neos.Fusion:RawArray {
+        lg = null
+        md = null
+        sm = null
+        xs = null
+        fallback = null
+    }
 
-	title = ${q(node).property('title')}
-	alternativeText = ${q(node).property('alternativeText')}
-	caption = ${q(node).property('caption')}
+    title = ${q(node).property('title')}
+    alternativeText = ${q(node).property('alternativeText')}
+    caption = ${q(node).property('caption')}
 
-	breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
-	maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
-	maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
-	widths = ${Configuration.setting('Jonnitto.Picture.widths')}
-	heights = ${Configuration.setting('Jonnitto.Picture.heights')}
-	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
-	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+    breakpoints = ${Configuration.setting('Jonnitto.Picture.breakpoints')}
+    maximumWidths = ${Configuration.setting('Jonnitto.Picture.maximumWidths')}
+    maximumHeights = ${Configuration.setting('Jonnitto.Picture.maximumHeights')}
+    widths = ${Configuration.setting('Jonnitto.Picture.widths')}
+    heights = ${Configuration.setting('Jonnitto.Picture.heights')}
+    allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+    allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
 
-	@context {
-		title = ${this.title}
-		alternativeText = ${this.alternativeText}
-		caption = ${this.caption}
+    @context {
+        title = ${this.title}
+        alternativeText = ${this.alternativeText}
+        caption = ${this.caption}
+        srcset = ${this.srcset}
 
-		breakpoints = ${this.breakpoints}
-		maximumWidths = ${this.maximumWidths}
-		maximumHeights = ${this.maximumHeights}
-		widths = ${this.widths}
-		heights = ${this.heights}
-		allowCropping = ${this.allowCropping}
-		allowUpScaling = ${this.allowUpScaling}
-		presets = ${this.presets}
+        breakpoints = ${this.breakpoints}
+        maximumWidths = ${this.maximumWidths}
+        maximumHeights = ${this.maximumHeights}
+        widths = ${this.widths}
+        heights = ${this.heights}
+        allowCropping = ${this.allowCropping}
+        allowUpScaling = ${this.allowUpScaling}
+        presets = ${this.presets}
 
-		sourceLG = ${this.singleImage ? this.image : this.images.lg}
-		sourceMD = ${this.singleImage ? this.image : this.images.md ? this.images.md : this.images.lg}
-		sourceSM = ${this.singleImage ? this.image : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
-		sourceXS = ${this.singleImage ? this.image : this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
-		fallback = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
-		lightbox = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
-	}
+        sourceLG = ${this.singleImage ? this.image : this.images.lg}
+        sourceMD = ${this.singleImage ? this.image : this.images.md ? this.images.md : this.images.lg}
+        sourceSM = ${this.singleImage ? this.image : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+        sourceXS = ${this.singleImage ? this.image : this.images.xs ? this.images.xs : this.images.sm ? this.images.sm : this.images.md ? this.images.md : this.images.lg}
+        fallback = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+        lightboxAsset = ${this.singleImage ? this.image : this.images.lg ? this.images.lg : this.images.md ? this.images.md : this.images.sm ? this.images.sm : this.images.xs}
+    }
 
-	attributes {
-		class = Fusion:RawArray {
-			settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
-		}
-	}
+    attributes {
+        class = Neos.Fusion:RawArray {
+            settings = ${Configuration.setting('Jonnitto.Picture.cssClass')}
+        }
+    }
 
-	@process {
-		addLightbox = Jonnitto.Picture:Lightbox
-		addLink = Jonnitto.Picture:Link
-	}
+    @process {
+        addLink = Carbon.Image:Link
+        addLightbox = Carbon.Image:Lightbox {
+            asset = ${lightboxAsset}
+            @if {
+                hasNoLink = ${link ? false : true}
+                hasLightbox = ${lightbox ? true : false}
+            }
+        }
+    }
 
-	content = Fusion:Array {
-		prototype(Jonnitto.Picture:Source) {
-			allowCropping = ${allowCropping}
-			allowUpScaling = ${allowUpScaling}
-		}
+    content = Neos.Fusion:Array {
+        prototype(Jonnitto.Picture:Source) {
+            allowCropping = ${allowCropping}
+            allowUpScaling = ${allowUpScaling}
+        }
 
-		sourceLG = Jonnitto.Picture:Source {
-			asset = ${node.context.inBackend ? false : sourceLG}
-			media = ${breakpoints.lg}
-			maximumWidth = ${maximumWidths.lg}
-			maximumHeight = ${maximumHeights.lg}
-			width = ${widths.lg}
-			height = ${heights.lg}
-			preset = ${presets.lg}
-		}
-		sourceMD = Jonnitto.Picture:Source {
-			asset = ${node.context.inBackend ? false : sourceMD}
-			media = ${breakpoints.md}
-			maximumWidth = ${maximumWidths.md}
-			maximumHeight = ${maximumHeights.md}
-			width = ${widths.md}
-			height = ${heights.md}
-			preset = ${presets.md}
-		}
-		sourceSM = Jonnitto.Picture:Source {
-			asset = ${node.context.inBackend ? false : sourceSM}
-			media = ${breakpoints.sm}
-			maximumWidth = ${maximumWidths.sm}
-			maximumHeight = ${maximumHeights.sm}
-			width = ${widths.sm}
-			height = ${heights.sm}
-			preset = ${presets.sm}
-		}
-		sourceXS = Jonnitto.Picture:Source {
-			asset = ${node.context.inBackend ? false : sourceXS}
-			maximumWidth = ${maximumWidths.xs}
-			maximumHeight = ${maximumHeights.xs}
-			width = ${widths.xs}
-			height = ${heights.xs}
-			preset = ${presets.xs}
-		}
-		fallback = Jonnitto.Picture:ImageTag {
-			asset = ${fallback}
-			title = ${title}
-			alternativeText = ${alternativeText}
-			maximumWidth = ${maximumWidths.fallback}
-			maximumHeight = ${maximumHeights.fallback}
-			width = ${widths.fallback}
-			height = ${heights.fallback}
-			allowCropping = ${allowCropping}
-			allowUpScaling = ${allowUpScaling}
-			preset = ${presets.fallback}
-		}
-	}
+        sourceLG = Jonnitto.Picture:Source {
+            asset = ${node.context.inBackend ? false : sourceLG}
+            media = ${breakpoints.lg}
+            maximumWidth = ${maximumWidths.lg}
+            maximumHeight = ${maximumHeights.lg}
+            width = ${widths.lg}
+            height = ${heights.lg}
+            preset = ${presets.lg}
+        }
+        sourceMD = Jonnitto.Picture:Source {
+            asset = ${node.context.inBackend ? false : sourceMD}
+            media = ${breakpoints.md}
+            maximumWidth = ${maximumWidths.md}
+            maximumHeight = ${maximumHeights.md}
+            width = ${widths.md}
+            height = ${heights.md}
+            preset = ${presets.md}
+        }
+        sourceSM = Jonnitto.Picture:Source {
+            asset = ${node.context.inBackend ? false : sourceSM}
+            media = ${breakpoints.sm}
+            maximumWidth = ${maximumWidths.sm}
+            maximumHeight = ${maximumHeights.sm}
+            width = ${widths.sm}
+            height = ${heights.sm}
+            preset = ${presets.sm}
+        }
+        sourceXS = Jonnitto.Picture:Source {
+            asset = ${node.context.inBackend ? false : sourceXS}
+            maximumWidth = ${maximumWidths.xs}
+            maximumHeight = ${maximumHeights.xs}
+            width = ${widths.xs}
+            height = ${heights.xs}
+            preset = ${presets.xs}
+        }
+        fallback = Jonnitto.Picture:ImageTag {
+            asset = ${fallback}
+            title = ${title}
+            alternativeText = ${alternativeText}
+            maximumWidth = ${maximumWidths.fallback}
+            maximumHeight = ${maximumHeights.fallback}
+            width = ${widths.fallback}
+            height = ${heights.fallback}
+            allowCropping = ${allowCropping}
+            allowUpScaling = ${allowUpScaling}
+            preset = ${presets.fallback}
+        }
+    }
 }

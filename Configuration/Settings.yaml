@@ -3,9 +3,9 @@ Jonnitto:
     container: false
     Polyfill: HTMLPictureElement
     cssClass: picture-element
-    lightbox:
-      class: 'picture-lightbox lightbox'
-      target: _blank
+    srcset:
+      - 1
+      - 2
     allowCropping: false
     allowUpScaling: false
     width: false

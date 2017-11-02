@@ -1,78 +1,15 @@
-prototype(Jonnitto.Picture:ImageTag) < prototype(Fusion:Tag) {
-	asset = false
-	alternativeText = false
-	title = false
-	preset = false
-	maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
-	maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
-	width = ${Configuration.setting('Jonnitto.Picture.width')}
-	height = ${Configuration.setting('Jonnitto.Picture.height')}
-	allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
-	allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
+prototype(Jonnitto.Picture:ImageTag) < prototype(Carbon.Image:Tag) {
+    maximumWidth = ${Configuration.setting('Jonnitto.Picture.maximumWidth')}
+    maximumHeight = ${Configuration.setting('Jonnitto.Picture.maximumHeight')}
+    width = ${Configuration.setting('Jonnitto.Picture.width')}
+    height = ${Configuration.setting('Jonnitto.Picture.height')}
+    allowCropping = ${Configuration.setting('Jonnitto.Picture.allowCropping')}
+    allowUpScaling = ${Configuration.setting('Jonnitto.Picture.allowUpScaling')}
 
-	@context {
-		asset = ${this.asset}
-		alternativeText = ${this.alternativeText}
-		title = ${this.title}
-		preset = ${this.preset}
-		maximumWidth = ${this.maximumWidth}
-		maximumHeight = ${this.maximumHeight}
-		width = ${this.width}
-		height = ${this.height}
-		allowCropping = ${this.allowCropping}
-		allowUpScaling = ${this.allowUpScaling}
-	}
+    srcset = null
 
-	prototype(ImageUri) {
-		asset = ${asset}
-		allowCropping = ${allowCropping}
-		allowUpScaling = ${allowUpScaling}
-		maximumWidth = Fusion:Case {
-			inBackendAndNoEdit {
-				condition = ${node.context.inBackend && !allowCropping && !allowUpScaling ? true : false}
-				renderer = false
-			}
-			default {
-				condition = true
-				renderer = ${width ? false : maximumWidth}
-			}
-		}
-		maximumHeight = Fusion:Case {
-			inBackendAndNoEdit {
-				condition = ${node.context.inBackend && !allowCropping && !allowUpScaling ? true : false}
-				renderer = false
-			}
-			default {
-				condition = true
-				renderer = ${height ? false : maximumHeight}
-			}
-		}
-		width = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !width ? false : width}
-		height = ${(node.context.inBackend && !allowCropping && !allowUpScaling) || !height ? false : height}
-		preset = ${preset}
-	}
-
-	@if.inBackendOrHasImage = ${asset || node.context.inBackend ? true : false}
-
-	tagName = 'img'
-	attributes {
-		class = Fusion:RawArray {
-			asset = ${asset ? 'picture' : 'neos-handle'}
-		}
-		style = ${asset ? false : 'max-height:200px;width:auto;display:inline-block;height:100%;'}
-		alt = ${alternativeText ? alternativeText : false}
-		title = ${title ? title : false}
-		src = Fusion:Case {
-			hasImage {
-				condition = ${asset ? true : false}
-				renderer = ImageUri
-			}
-			inBackend {
-				condition = ${node.context.inBackend}
-				renderer = Fusion:ResourceUri {
-					path = 'resource://Jonnitto.Picture/Public/dummy-image.svg'
-				}
-			}
-		}
-	}
+    @process {
+        addLink >
+        addLightbox >
+    }
 }
