@@ -1,6 +1,6 @@
 prototype(Jonnitto.Picture:Picture) < prototype(Neos.Fusion:Tag) {
     tagName = 'figure'
-    attributes.class = Fusion:RawArray {
+    attributes.class = Neos.Fusion:RawArray {
         nodeType = 'jonnitto-picture'
         container = ${Configuration.setting('Jonnitto.Picture.container')}
     }
@@ -10,13 +10,13 @@ prototype(Jonnitto.Picture:Picture) < prototype(Neos.Fusion:Tag) {
     singleImage = ${Configuration.setting('Jonnitto.Picture.singleImage')}
     srcset = ${Configuration.setting('Jonnitto.Picture.srcset')}
     // The responsive image variants
-    images = Fusion:RawArray {
+    images = Neos.Fusion:RawArray {
         md = ${q(node).property('laptop')}
         sm = ${q(node).property('tablet')}
         xs = ${q(node).property('mobile')}
     }
 
-    presets = Fusion:RawArray {
+    presets = Neos.Fusion:RawArray {
         lg = null
         md = null
         sm = null
@@ -68,7 +68,7 @@ prototype(Jonnitto.Picture:Picture) < prototype(Neos.Fusion:Tag) {
     content = Jonnitto.Picture:PictureTag {
         singleImage = ${singleImage}
         image = ${image}
-        images = Fusion:RawArray {
+        images = Neos.Fusion:RawArray {
             lg = ${image}
             md = ${images.md}
             sm = ${images.sm}
@@ -95,7 +95,7 @@ prototype(Jonnitto.Picture:Picture) < prototype(Neos.Fusion:Tag) {
 
     @if.hasImageOrBackend = ${node.context.inBackend || this.hasImage ? true : false}
     @process.contentElementWrapping {
-        expression = ContentElementWrapping
+        expression = Neos.Neos:ContentElementWrapping
         @position = 'end 999999999'
     }
 

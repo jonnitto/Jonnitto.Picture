@@ -1,4 +1,4 @@
-prototype(Page) {
+prototype(Neos.Neos:Page) {
     head.JonnittoPicturePolyfill = Jonnitto.Picture:Polyfill {
         @if.isLive = ${node.context.live}
         @position = 'before javascripts'
