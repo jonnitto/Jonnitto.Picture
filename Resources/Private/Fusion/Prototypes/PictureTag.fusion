@@ -61,9 +61,12 @@ prototype(Jonnitto.Picture:PictureTag) < prototype(Neos.Fusion:Tag) {
     }
 
     @process {
-        addLink = Carbon.Image:Link
+        addLink = Carbon.Image:Link {
+            link = ${link}
+        }
         addLightbox = Carbon.Image:Lightbox {
             asset = ${lightboxAsset}
+            caption = ${caption}
             @if {
                 hasNoLink = ${link ? false : true}
                 hasLightbox = ${lightbox ? true : false}
