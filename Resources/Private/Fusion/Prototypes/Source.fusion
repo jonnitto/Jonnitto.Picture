@@ -36,6 +36,16 @@ prototype(Jonnitto.Picture:Source) < prototype(Neos.Fusion:Tag) {
         media = ${media}
         sizes = ${sizes}
         type = ${type}
-        srcset = Carbon.Image:Srcset
+        srcset = Carbon.Image:Attributes.Srcset {
+            asset = ${asset}
+            preset = ${preset}
+            srcset = ${srcset}
+            maximumWidth = ${maximumWidth}
+            maximumHeight = ${maximumHeight}
+            width = ${width}
+            height = ${height}
+            allowCropping = ${allowCropping}
+            allowUpScaling = ${allowUpScaling}
+        }
     }
 }

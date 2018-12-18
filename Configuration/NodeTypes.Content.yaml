@@ -15,3 +15,24 @@
     label: i18n
     icon: icon-picture
     position: 400
+  properties:
+    title:
+      ui:
+        inspector:
+          hidden: false
+    alternativeText:
+      ui:
+        inspector:
+          hidden: false
+    lightbox:
+      ui:
+        inspector:
+          hidden: 'ClientEval:node.properties.link ? true : false'
+    caption:
+      ui:
+        inspector:
+          hidden: 'ClientEval:node.properties.lightbox && !node.properties.link ? false : true'
+    link:
+      ui:
+        inspector:
+          hidden: false
