@@ -16,7 +16,7 @@
         "neos/neos": "~4.2",
         "carbon/link": "^1.0",
         "carbon/image": "^2.0",
-        "carbon/notification": "^1.2"
+        "carbon/notification": "^1.2 || ^2.0"
     },
     "archive": {
         "exclude": [".editorconfig", ".github", ".gitattributes", "CODE_OF_CONDUCT.md"]
